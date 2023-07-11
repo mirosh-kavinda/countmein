@@ -1,6 +1,6 @@
 {
-    "name": "countme_in",
-    "short_name": "countme_in",
+    "name": "countmein_app1",
+    "short_name": "countmein_app1",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
