@@ -1,4 +1,4 @@
-name: countmein_app1
+name: countmein
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -35,6 +35,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  email_validator: ^2.0.1
+  image_picker: ^0.8.5+3
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +64,9 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+
+  assets:
+    - assets/images/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
@@ -78,7 +83,14 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+
+  fonts:
+  - family: NotoSerif
+    fonts:
+      - asset: assets/fonts/NotoSerif-Regular.ttf
+      - asset: assets/fonts/NotoSerif-Bold.ttf
+        weight: 700
+# fonts:
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

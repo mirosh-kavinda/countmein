@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:countmein/components/login_page.dart';
 
 void main() {
   runApp(const CountMeIn());
@@ -16,7 +17,8 @@ class CountMeIn extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const HomePage(),
+        '/': (context) => const LoginPage(),
+        '/home': (context) => const HomePage(),
         '/templateSelect': (context) => const TemplateSelect(),
         '/orderDetails': (context) => const OrderDetails('your_order_id'),
         '/loadImage': (context) => const LoadImagePage(),
