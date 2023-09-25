@@ -1,32 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:countmein/components/login_page.dart';
-
-void main() {
-  runApp(const CountMeIn());
-}
-
-class CountMeIn extends StatelessWidget {
-  const CountMeIn({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'CountMeIn',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const LoginPage(),
-        '/home': (context) => const HomePage(),
-        '/templateSelect': (context) => const TemplateSelect(),
-        '/orderDetails': (context) => const OrderDetails('your_order_id'),
-        '/loadImage': (context) => const LoadImagePage(),
-        '/defectTrack': (context) => const DefectTrackPage(),
-      },
-    );
-  }
-}
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -137,7 +109,7 @@ class HomePage extends StatelessWidget {
                               },
                               leading: Container(
                                 width: 60.0,
-                               height: 60.0,
+                                height: 60.0,
                                 decoration: const BoxDecoration(
                                   color: Colors.blue,
                                   shape: BoxShape.circle,
@@ -164,95 +136,6 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class TemplateSelect extends StatelessWidget {
-  const TemplateSelect({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Select Template'),
-      ),
-      body: const Center(
-        child: Text('Select a Template'),
-      ),
-    );
-  }
-}
-
-class OrderDetails extends StatelessWidget {
-  const OrderDetails(this.orderId, {Key? key}) : super(key: key);
-
-  final String orderId;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Order Details'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Order Details for Order ID: $orderId'),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/loadImage');
-              },
-              child: const Text('Go to Load Image'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class LoadImagePage extends StatelessWidget {
-  const LoadImagePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Image.asset(
-          'assets/images/load_image.png',
-          width: 200,
-          height: 200,
-        ),
-      ),
-    );
-  }
-}
-
-class DefectTrackPage extends StatelessWidget {
-  const DefectTrackPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Defect Track Page'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Defect Tracking'),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Go Back'),
-            ),
-          ],
-        ),
       ),
     );
   }
