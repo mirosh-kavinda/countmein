@@ -11,7 +11,9 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0.0,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            // Implement menu functionality here
+          },
           icon: const Icon(
             Icons.menu,
             color: Colors.black,
@@ -19,7 +21,9 @@ class HomePage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              // Implement notifications functionality here
+            },
             icon: const Icon(
               Icons.notifications_none,
               color: Colors.black,
@@ -30,8 +34,9 @@ class HomePage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Text(
               'Hello,',
               style: TextStyle(
@@ -41,8 +46,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               'John Doe',
               style: TextStyle(
@@ -52,7 +57,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 24.0),
+          SizedBox(height: 24.0),
           Expanded(
             child: Container(
               decoration: const BoxDecoration(
@@ -64,13 +69,13 @@ class HomePage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  const SizedBox(height: 24.0),
+                  SizedBox(height: 24.0),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Orders',
                           style: TextStyle(
                             fontSize: 20.0,
@@ -80,9 +85,9 @@ class HomePage extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/orderDetails');
+                            // Implement 'See All' functionality here
                           },
-                          child: const Text(
+                          child: Text(
                             'See All',
                             style: TextStyle(
                               fontSize: 16.0,
@@ -94,36 +99,39 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 24.0),
+                  SizedBox(height: 24.0),
                   Expanded(
                     child: ListView.builder(
                       itemCount: 4,
                       itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Card(
-                            elevation: 2.0,
-                            child: ListTile(
-                              onTap: () {
-                                Navigator.pushNamed(context, '/templateSelect');
-                              },
-                              leading: Container(
-                                width: 60.0,
-                                height: 60.0,
-                                decoration: const BoxDecoration(
-                                  color: Colors.blue,
-                                  shape: BoxShape.circle,
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/templateSelect');
+                          },
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Card(
+                              elevation: 2.0,
+                              child: ListTile(
+                                leading: Container(
+                                  width: 60.0,
+                                  height: 60.0,
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    shape: BoxShape.circle,
+                                  ),
                                 ),
-                              ),
-                              title: Text(
-                                'Order ${index + 1}',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
+                                title: Text(
+                                  'Order ${index + 1}',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              subtitle: const Text('Order details'),
-                              trailing: const Icon(
-                                Icons.keyboard_arrow_right,
+                                subtitle: const Text('Order details'),
+                                trailing: Icon(
+                                  Icons.keyboard_arrow_right,
+                                ),
                               ),
                             ),
                           ),
