@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:countmein/components/login_page.dart';
+import 'package:countmein/template_page.dart';
+import 'package:countmein/counting_page.dart';
+import 'order_details_page.dart';
+// Import your new page
 
 void main() {
   runApp(const CountMeIn());
@@ -23,6 +27,8 @@ class CountMeIn extends StatelessWidget {
         '/orderDetails': (context) => const OrderDetails('your_order_id'),
         '/loadImage': (context) => const LoadImagePage(),
         '/defectTrack': (context) => const DefectTrackPage(),
+        '/template_page': (context) => const TemplatePage(), // Add this line
+        '/orderDetailsPage': (context) => OrderDetailsPage(),
       },
     );
   }
@@ -137,7 +143,7 @@ class HomePage extends StatelessWidget {
                               },
                               leading: Container(
                                 width: 60.0,
-                               height: 60.0,
+                                height: 60.0,
                                 decoration: const BoxDecoration(
                                   color: Colors.blue,
                                   shape: BoxShape.circle,
