@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cupertino_icons/cupertino_icons.dart';
+import 'package:flutter/cupertino.dart';
 
 class OrderDetailsPage extends StatelessWidget {
   @override
@@ -11,11 +11,11 @@ class OrderDetailsPage extends StatelessWidget {
       body: ListView(
         children: [
           // Order number
-          ListTile(
-            leading: Icon(CupertinoIcons.hash_circle_fill),
-            title: Text('Order No.'),
-            subtitle: Text('1234567890'),
-          ),
+          // ListTile(
+          //   leading: Icon(CupertinoIcons.hash_circle_fill),
+          //   title: Text('Order No.'),
+          //   subtitle: Text('1234567890'),
+          // ),
           // Checked by
           ListTile(
             leading: Icon(CupertinoIcons.person_fill),
@@ -23,17 +23,17 @@ class OrderDetailsPage extends StatelessWidget {
             subtitle: Text('John Doe'),
           ),
           // Order package
-          ListTile(
-            leading: Icon(CupertinoIcons.package_fill),
-            title: Text('Order Package'),
-            subtitle: Text('Box'),
-          ),
+          // ListTile(
+          //   leading: Icon(CupertinoIcons.package_fill),
+          //   title: Text('Order Package'),
+          //   subtitle: Text('Box'),
+          // ),
           // Weight bridge count (KG)
-          ListTile(
-            leading: Icon(CupertinoIcons.weight_kg),
-            title: Text('Weight Bridge Count (KG)'),
-            subtitle: Text('10'),
-          ),
+          // ListTile(
+          //   leading: Icon(CupertinoIcons.weight_kg),
+          //   title: Text('Weight Bridge Count (KG)'),
+          //   subtitle: Text('10'),
+          // ),
           // Next button
           ListTile(
             trailing: Icon(CupertinoIcons.forward),

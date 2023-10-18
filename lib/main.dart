@@ -3,14 +3,18 @@ import 'package:countmein/components/login_page.dart';
 import 'package:countmein/template_page.dart';
 import 'package:countmein/counting_page.dart';
 import 'order_details_page.dart';
-// Import your new page
+
+
+
 
 void main() {
   runApp(const CountMeIn());
 }
 
+
 class CountMeIn extends StatelessWidget {
   const CountMeIn({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

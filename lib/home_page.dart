@@ -23,6 +23,7 @@ class HomePage extends StatelessWidget {
           IconButton(
             onPressed: () {
               // Implement notifications functionality here
+              Navigator.pushNamed(context, '/defectTrack');
             },
             icon: const Icon(
               Icons.notifications_none,
