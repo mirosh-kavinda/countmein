@@ -34,30 +34,7 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: Text(
-              'Hello,',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              'John Doe',
-              style: TextStyle(
-                fontSize: 32.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-          ),
+        children: [  
           SizedBox(height: 24.0),
           Expanded(
             child: Container(
@@ -84,10 +61,7 @@ class HomePage extends StatelessWidget {
                             color: Colors.black,
                           ),
                         ),
-                        TextButton(
-                          onPressed: () {
-                            // Implement 'See All' functionality here
-                          },
+                       
                           child: Text(
                             'See All',
                             style: TextStyle(

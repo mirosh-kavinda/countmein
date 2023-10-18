@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:countmein/components/login_page.dart';
-import 'package:countmein/template_page.dart';
-import 'package:countmein/counting_page.dart';
-import 'order_details_page.dart';
-
-
-
+import 'package:countmein/auth/login_page.dart';
+import 'package:countmein/pages/template_page.dart';
+import 'package:countmein/pages/counting_page.dart';
+import 'package:countmein/pages/order_details_page.dart';
 
 void main() {
   runApp(const CountMeIn());
 }
 
-
 class CountMeIn extends StatelessWidget {
   const CountMeIn({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -68,28 +63,6 @@ class HomePage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: Text(
-              'Hello,',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              'John Doe',
-              style: TextStyle(
-                fontSize: 32.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-          ),
           const SizedBox(height: 24.0),
           Expanded(
             child: Container(
@@ -154,7 +127,7 @@ class HomePage extends StatelessWidget {
                                 ),
                               ),
                               title: Text(
-                                'Order ${index + 1}',
+                                'Template ${index + 1}',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),

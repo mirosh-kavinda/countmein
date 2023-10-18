@@ -1,11 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:countmein/components/common/page_header.dart';
-import 'package:countmein/components/common/page_heading.dart';
-import 'package:countmein/components/login_page.dart';
-
-import 'package:countmein/components/common/custom_form_button.dart';
-import 'package:countmein/components/common/custom_input_field.dart';
+import 'package:countmein/auth/common/page_header.dart';
+import 'package:countmein/auth/common/page_heading.dart';
+import 'package:countmein/auth/login_page.dart';
+import 'package:countmein/auth/common/custom_form_button.dart';
+import 'package:countmein/auth/common/custom_input_field.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);

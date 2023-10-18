@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:countmein/components/common/custom_input_field.dart';
-import 'package:countmein/components/common/page_header.dart';
-import 'package:countmein/components/forget_password_page.dart';
-import 'package:countmein/components/signup_page.dart';
-import 'package:email_validator/email_validator.dart';
-import 'package:countmein/components/common/page_heading.dart';
-
-import 'package:countmein/components/common/custom_form_button.dart';
+import 'package:countmein/auth/common/custom_input_field.dart';
+import 'package:countmein/auth/common/page_header.dart';
+import 'package:countmein/auth/forget_password_page.dart';
+import 'package:countmein/auth/signup_page.dart';
+import 'package:countmein/auth/common/page_heading.dart';
+import 'package:countmein/auth/common/custom_form_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -51,11 +49,11 @@ class _LoginPageState extends State<LoginPage> {
                               if (textValue == null || textValue.isEmpty) {
                                 return 'Email is required!';
                               }
-                              if (!EmailValidator.validate(textValue)) {
-                                return 'Please enter a valid email';
-                              }
-                              // return null;
-                              Navigator.pushNamed(context, '/home');
+                              // if (!EmailValidator.validate(textValue)) {
+                              //   return 'Please enter a valid email';
+                              // }
+                           
+                          
                             }),
                         const SizedBox(
                           height: 16,
@@ -70,7 +68,6 @@ class _LoginPageState extends State<LoginPage> {
                               return 'Password is required!';
                             }
                             // return null;
-                            Navigator.pushNamed(context, '/home');
                           },
                         ),
                         const SizedBox(
@@ -105,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: _handleLoginUser,
                         ),
                         const SizedBox(
-                          height: 18,
+                          height: 48,
                         ),
                         SizedBox(
                           width: size.width * 0.8,
@@ -158,7 +155,9 @@ class _LoginPageState extends State<LoginPage> {
     if (_loginFormKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Submitting data..')),
+      
       );
+        Navigator.of(context).pushNamed('/home');
     }
   }
 }

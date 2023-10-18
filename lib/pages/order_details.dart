@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+
 
 class OrderDetailsPage extends StatelessWidget {
   final String orderId;
@@ -22,6 +24,26 @@ class OrderDetailsPage extends StatelessWidget {
               },
               child: const Text('Go to Template Select'),
             ),
+             ListView(
+        children: [
+          Order number
+          ListTile(
+            // leading: Icon(CupertinoIcons.hash_circle_fill),
+            title: Text('Order No.'),
+            subtitle: Text('1234567890'),
+          ),
+          // Checked by
+          ListTile(
+            // leading: Icon(CupertinoIcons.person_fill),
+            title: Text('Checked By'),
+            subtitle: Text('John Doe'),
+          ),
+          // Order package
+          ListTile(
+            // leading: Icon(CupertinoIcons.package_fill),
+            title: Text('Order Package'),
+            subtitle: Text('Box'),
+          ),
           ],
         ),
       ),
