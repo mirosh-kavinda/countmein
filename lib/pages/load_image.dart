@@ -92,7 +92,7 @@ class Wireframe12 extends StatelessWidget {
   Future<void> _getImageFromCamera(BuildContext context) async {
     final picker = ImagePicker();
     // ignore: deprecated_member_use
-    final pickedImage = await picker.getImage(source: ImageSource.camera);
+    final pickedImage = await picker.pickImage(source: ImageSource.camera);
 
     if (pickedImage != null) {
       File imageFile = File(pickedImage.path);
@@ -111,7 +111,7 @@ class Wireframe12 extends StatelessWidget {
   Future<void> _getImageFromGallery(BuildContext context) async {
     final picker = ImagePicker();
     // ignore: deprecated_member_use
-    final pickedImage = await picker.getImage(source: ImageSource.gallery);
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
       File imageFile = File(pickedImage.path);

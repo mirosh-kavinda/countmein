@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 class OrderDetailsPage extends StatelessWidget {
   final String orderId;
 
-  const OrderDetailsPage(this.orderId, {super.key});
+  const OrderDetailsPage(this.orderId, {});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +25,8 @@ class OrderDetailsPage extends StatelessWidget {
               child: const Text('Go to Template Select'),
             ),
              ListView(
-        children: [
-          Order number
+          children: [
+    
           ListTile(
             // leading: Icon(CupertinoIcons.hash_circle_fill),
             title: Text('Order No.'),
@@ -45,6 +45,8 @@ class OrderDetailsPage extends StatelessWidget {
             subtitle: Text('Box'),
           ),
           ],
+        ),
+          ]
         ),
       ),
     );

@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [  
+        children: [
           SizedBox(height: 24.0),
           Expanded(
             child: Container(
@@ -61,14 +61,12 @@ class HomePage extends StatelessWidget {
                             color: Colors.black,
                           ),
                         ),
-                       
-                          child: Text(
-                            'See All',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue,
-                            ),
+                        Text(
+                          'See All',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
                           ),
                         ),
                       ],
@@ -92,7 +90,7 @@ class HomePage extends StatelessWidget {
                                 leading: Container(
                                   width: 60.0,
                                   height: 60.0,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: Colors.blue,
                                     shape: BoxShape.circle,
                                   ),
@@ -104,7 +102,7 @@ class HomePage extends StatelessWidget {
                                   ),
                                 ),
                                 subtitle: const Text('Order details'),
-                                trailing: Icon(
+                                trailing: const Icon(
                                   Icons.keyboard_arrow_right,
                                 ),
                               ),
