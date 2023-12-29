@@ -1,10 +1,12 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:countmein/auth/common/custom_form_button.dart';
 import 'package:countmein/auth/common/page_header.dart';
 import 'package:countmein/auth/common/page_heading.dart';
 import 'package:countmein/auth/login_page.dart';
 import 'package:countmein/auth/common/custom_input_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
   const ForgetPasswordPage({Key? key}) : super(key: key);
@@ -16,7 +18,8 @@ class ForgetPasswordPage extends StatefulWidget {
 class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
 
   final _forgetPasswordFormKey = GlobalKey<FormState>();
-
+  final TextEditingController _emailController = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,6 +41,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                       children: [
                         const PageHeading(title: 'Forgot password',),
                         CustomInputField(
+                            controller: _emailController ,
                             labelText: 'Email',
                             hintText: 'Your email id',
                             isDense: true,
@@ -85,9 +89,13 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   void _handleForgetPassword() {
     // forget password
     if (_forgetPasswordFormKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Submitting data..')),
-      );
+      auth
+          .sendPasswordResetEmail(email: _emailController.text)
+          .whenComplete(() => ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Password reset link sent to your email"),
+                ),
+              ));
     }
   }
 }

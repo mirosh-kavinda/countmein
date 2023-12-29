@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "29633496293",
+    "project_id": "countmein-e7dcb",
+    "storage_bucket": "countmein-e7dcb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:29633496293:android:fa429701acb93321d1000c",
+        "android_client_info": {
+          "package_name": "com.example.countmein_app1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8hehDfWvvTBuwAuYCUcxG9ezUkAWe0bs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

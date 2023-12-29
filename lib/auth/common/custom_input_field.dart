@@ -15,7 +15,7 @@ class CustomInputField extends StatefulWidget {
     required this.validator,
     this.suffixIcon = false,
     this.isDense,
-    this.obscureText = false
+    this.obscureText = false, required TextEditingController controller
   }) : super(key: key);
 
   @override

@@ -1,10 +1,12 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:countmein/auth/common/page_header.dart';
 import 'package:countmein/auth/common/page_heading.dart';
 import 'package:countmein/auth/login_page.dart';
 import 'package:countmein/auth/common/custom_form_button.dart';
 import 'package:countmein/auth/common/custom_input_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -15,7 +17,11 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   final _signupFormKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
+  FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -43,6 +49,7 @@ class _SignupPageState extends State<SignupPage> {
                         height: 16,
                       ),
                       CustomInputField(
+                          controller: _nameController,
                           labelText: 'Name',
                           hintText: 'Your name',
                           isDense: true,
@@ -56,6 +63,7 @@ class _SignupPageState extends State<SignupPage> {
                         height: 16,
                       ),
                       CustomInputField(
+                          controller: _emailController,
                           labelText: 'Email',
                           hintText: 'Your email id',
                           isDense: true,
@@ -72,6 +80,7 @@ class _SignupPageState extends State<SignupPage> {
                         height: 16,
                       ),
                       CustomInputField(
+                        controller: _passwordController,
                         labelText: 'Password',
                         hintText: 'Your password',
                         isDense: true,
@@ -142,9 +151,19 @@ class _SignupPageState extends State<SignupPage> {
   void _handleSignupUser() {
     // signup user
     if (_signupFormKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Submitting data..')),
-      );
+      auth
+          .createUserWithEmailAndPassword(
+              email: _emailController.text, password: _passwordController.text)
+          .whenComplete(
+            () => ScaffoldMessenger.of(context)
+                .showSnackBar(
+                  const SnackBar(
+                    content: Text("Successfully Signed Up"),
+                  ),
+                )
+                .closed
+                .then((_) => Navigator.pushReplacementNamed(context, '/home')),
+          );
     }
   }
 }

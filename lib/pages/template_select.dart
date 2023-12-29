@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TemplateSelect extends StatelessWidget {
-  const TemplateSelect({super.key});
+  const TemplateSelect({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

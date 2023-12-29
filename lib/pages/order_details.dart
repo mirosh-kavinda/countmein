@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 class OrderDetailsPage extends StatelessWidget {
   final String orderId;
 
-  const OrderDetailsPage(this.orderId, {});
+  const OrderDetailsPage(this.orderId, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

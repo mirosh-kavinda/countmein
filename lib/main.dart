@@ -1,242 +1,53 @@
+import 'package:countmein/pages/defect_track.dart';
+import 'package:countmein/pages/landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:countmein/auth/login_page.dart';
-import 'package:countmein/pages/template_page.dart';
-import 'package:countmein/pages/counting_page.dart';
-import 'package:countmein/pages/order_details_page.dart';
+import 'package:countmein/pages/template_select.dart';
+import 'package:countmein/pages/order_details.dart';
+import 'package:countmein/pages/home_page.dart';
+import 'package:device_preview/device_preview.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:countmein/pages/load_image.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(const CountMeIn());
+
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(
+    DevicePreview(
+      enabled: true,
+      tools: [...DevicePreview.defaultTools],
+      builder: (context) => const CountMeIn(),
+    ),
+  );
 }
 
 class CountMeIn extends StatelessWidget {
   const CountMeIn({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CountMeIn',
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const LoginPage(),
+        '/': (context) =>  LandingPage(),
         '/home': (context) => const HomePage(),
         '/templateSelect': (context) => const TemplateSelect(),
-        '/orderDetails': (context) => const OrderDetails('your_order_id'),
+        '/orderDetails': (context) => const OrderDetailsPage("your_order_id"),
         '/loadImage': (context) => const LoadImagePage(),
-        '/defectTrack': (context) => const DefectTrackPage(),
-        '/template_page': (context) => const TemplatePage(), // Add this line
-        '/orderDetailsPage': (context) => OrderDetailsPage(),
+        '/defectTrack': (context) => const DefectTrackPage()
       },
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFEFF3F6),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.menu,
-            color: Colors.black,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.notifications_none,
-              color: Colors.black,
-            ),
-          ),
-        ],
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const SizedBox(height: 24.0),
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(32.0),
-                  topRight: Radius.circular(32.0),
-                ),
-              ),
-              child: Column(
-                children: [
-                  const SizedBox(height: 24.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Orders',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/orderDetails');
-                          },
-                          child: const Text(
-                            'See All',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 24.0),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: 4,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Card(
-                            elevation: 2.0,
-                            child: ListTile(
-                              onTap: () {
-                                Navigator.pushNamed(context, '/templateSelect');
-                              },
-                              leading: Container(
-                                width: 60.0,
-                                height: 60.0,
-                                decoration: const BoxDecoration(
-                                  color: Colors.blue,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                              title: Text(
-                                'Template ${index + 1}',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              subtitle: const Text('Order details'),
-                              trailing: const Icon(
-                                Icons.keyboard_arrow_right,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class TemplateSelect extends StatelessWidget {
-  const TemplateSelect({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Select Template'),
-      ),
-      body: const Center(
-        child: Text('Select a Template'),
-      ),
-    );
-  }
-}
-
-class OrderDetails extends StatelessWidget {
-  const OrderDetails(this.orderId, {Key? key}) : super(key: key);
-
-  final String orderId;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Order Details'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Order Details for Order ID: $orderId'),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/loadImage');
-              },
-              child: const Text('Go to Load Image'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class LoadImagePage extends StatelessWidget {
-  const LoadImagePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Image.asset(
-          'assets/images/load_image.png',
-          width: 200,
-          height: 200,
-        ),
-      ),
-    );
-  }
-}
-
-class DefectTrackPage extends StatelessWidget {
-  const DefectTrackPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Defect Track Page'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Defect Tracking'),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Go Back'),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

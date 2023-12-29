@@ -1,3 +1,4 @@
+import 'package:countmein/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:countmein/auth/common/custom_input_field.dart';
 import 'package:countmein/auth/common/page_header.dart';
@@ -5,6 +6,7 @@ import 'package:countmein/auth/forget_password_page.dart';
 import 'package:countmein/auth/signup_page.dart';
 import 'package:countmein/auth/common/page_heading.dart';
 import 'package:countmein/auth/common/custom_form_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -14,7 +16,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  //
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;  
   final _loginFormKey = GlobalKey<FormState>();
 
   @override
@@ -43,32 +47,32 @@ class _LoginPageState extends State<LoginPage> {
                           title: 'Log-in',
                         ),
                         CustomInputField(
+                            controller: _emailController,
                             labelText: 'Email',
                             hintText: 'Your email id',
                             validator: (textValue) {
                               if (textValue == null || textValue.isEmpty) {
                                 return 'Email is required!';
-                              }
-                              // if (!EmailValidator.validate(textValue)) {
-                              //   return 'Please enter a valid email';
-                              // }
-                           
-                          
+                              }                          
                             }),
+                            
                         const SizedBox(
                           height: 16,
                         ),
                         CustomInputField(
+                          controller:_passwordController ,
                           labelText: 'Password',
                           hintText: 'Your password',
                           obscureText: true,
                           suffixIcon: true,
-                          validator: (textValue) {
+                          validator: (textValue)  
+                           {
                             if (textValue == null || textValue.isEmpty) {
                               return 'Password is required!';
                             }
-                            // return null;
+                            return null;
                           },
+                          
                         ),
                         const SizedBox(
                           height: 16,
@@ -150,15 +154,34 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _handleLoginUser() {
-    // login user
+
+  void _handleLoginUser() async{
     if (_loginFormKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Submitting data..')),
-        
-      );
-        Navigator.of(context).pushNamed('/home');
+     final message = await auth.signInWithEmailAndPassword(
+              email: _emailController.text.trim(), 
+              password: _passwordController.text.trim()
+              )
+          .whenComplete(
+            () => ScaffoldMessenger.of(context)
+                .showSnackBar(
+                  const SnackBar(
+                    content: Text("Submiting Data"),
+                  ),
+                )
+                .closed
+
+          );
+            if (message !=null) {
+                  Navigator.pushNamed(context, '/templateSelect');
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(message.toString()),
+                    ),
+                  );
+                }
+
+
     }
   }
-}
-
+  }

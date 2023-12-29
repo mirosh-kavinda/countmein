@@ -2,92 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-class Wireframe8 extends StatelessWidget {
-  const Wireframe8({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Wireframe 8'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text('Wireframe 8'),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class Wireframe9 extends StatelessWidget {
-  const Wireframe9({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Wireframe 9'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text('Wireframe 9'),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class Wireframe10 extends StatelessWidget {
-  const Wireframe10({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Wireframe 10'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text('Wireframe 10'),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class Wireframe11 extends StatelessWidget {
-  const Wireframe11({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Wireframe 11'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text('Wireframe 11'),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class Wireframe12 extends StatelessWidget {
-  const Wireframe12({Key? key}) : super(key: key);
+class LoadImagePage extends StatelessWidget {
+  const LoadImagePage({Key? key}) : super(key: key);
 
   Future<void> _getImageFromCamera(BuildContext context) async {
     final picker = ImagePicker();
@@ -187,28 +103,3 @@ class SelectedImagePage extends StatelessWidget {
   }
 }
 
-void main() {
-  runApp(const CountMeIn());
-}
-
-class CountMeIn extends StatelessWidget {
-  const CountMeIn({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'CountMeIn',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const Wireframe8(),
-        '/wireframe9': (context) => const Wireframe9(),
-        '/wireframe10': (context) => const Wireframe10(),
-        '/wireframe11': (context) => const Wireframe11(),
-        '/wireframe12': (context) => const Wireframe12(),
-      },
-    );
-  }
-}
