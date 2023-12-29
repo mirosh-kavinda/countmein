@@ -9,6 +9,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:countmein/pages/load_image.dart';
 import 'firebase_options.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 
 
 
@@ -41,7 +42,16 @@ class CountMeIn extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) =>  LandingPage(),
+        '/': (context) => AnimatedSplashScreen(
+              splash: Image.asset(
+                'assets/images/friendship.png',
+              ),
+              duration: 1500,
+              backgroundColor: Colors.white,
+              splashIconSize: double.infinity,
+              splashTransition: SplashTransition.fadeTransition,
+              nextScreen: LandingPage(),
+            ),
         '/home': (context) => const HomePage(),
         '/templateSelect': (context) => const TemplateSelect(),
         '/orderDetails': (context) => const OrderDetailsPage("your_order_id"),
