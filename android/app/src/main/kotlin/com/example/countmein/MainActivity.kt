@@ -1,4 +1,4 @@
-package com.example.countmein_app1
+package com.example.countmein
 
 import io.flutter.embedding.android.FlutterActivity
 

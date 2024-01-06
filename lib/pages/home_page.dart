@@ -23,10 +23,10 @@ class HomePage extends StatelessWidget {
           IconButton(
             onPressed: () {
               // Implement notifications functionality here
-              Navigator.pushNamed(context, '/defectTrack');
+              Navigator.pushNamed(context, '/');
             },
             icon: const Icon(
-              Icons.notifications_none,
+              Icons.power_off,
               color: Colors.black,
             ),
           ),
@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Orders',
+                          'Templates',
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ class HomePage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/templateSelect');
+                            Navigator.pushNamed(context, '/loadImage');
                           },
                           child: Padding(
                             padding:
@@ -96,12 +96,12 @@ class HomePage extends StatelessWidget {
                                   ),
                                 ),
                                 title: Text(
-                                  'Order ${index + 1}',
+                                  'Template ${index + 1}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                subtitle: const Text('Order details'),
+                                subtitle: const Text('select this template to count steal bars'),
                                 trailing: const Icon(
                                   Icons.keyboard_arrow_right,
                                 ),

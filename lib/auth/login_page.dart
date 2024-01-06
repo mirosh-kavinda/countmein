@@ -1,4 +1,5 @@
 import 'package:countmein/pages/home_page.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:countmein/auth/common/custom_input_field.dart';
 import 'package:countmein/auth/common/page_header.dart';
@@ -16,10 +17,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  FirebaseAuth auth = FirebaseAuth.instance;  
-  final _loginFormKey = GlobalKey<FormState>();
+final _loginFormKey = GlobalKey<FormState>();
+final TextEditingController _emailController = TextEditingController();
+final TextEditingController _passwordController = TextEditingController();
+bool showSnackBar=false;
+String snakMessage='';
+FirebaseAuth auth = FirebaseAuth.instance;  
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,32 +51,33 @@ class _LoginPageState extends State<LoginPage> {
                           title: 'Log-in',
                         ),
                         CustomInputField(
-                            controller: _emailController,
-                            labelText: 'Email',
-                            hintText: 'Your email id',
-                            validator: (textValue) {
-                              if (textValue == null || textValue.isEmpty) {
-                                return 'Email is required!';
-                              }                          
-                            }),
-                            
-                        const SizedBox(
-                          height: 16,
-                        ),
+                          controller: _emailController,
+                          labelText: 'Email',
+                          hintText: 'Your email id',
+                          isDense: true,
+                          validator: (textValue) {
+                            if (textValue == null || textValue.isEmpty) {
+                              return 'Email is required!';
+                            }
+                            if (!EmailValidator.validate(textValue)) {
+                              return 'Please enter a valid email';
+                            }
+                            return null;
+                          }),
+
                         CustomInputField(
-                          controller:_passwordController ,
+                          controller: _passwordController, // Pass the controller to the CustomInputField
                           labelText: 'Password',
                           hintText: 'Your password',
                           obscureText: true,
                           suffixIcon: true,
-                          validator: (textValue)  
-                           {
+                          validator: (textValue) {
                             if (textValue == null || textValue.isEmpty) {
                               return 'Password is required!';
                             }
-                            return null;
+                            // Add password validation logic here if needed
+                            return null; // Return null when the input is valid
                           },
-                          
                         ),
                         const SizedBox(
                           height: 16,
@@ -155,33 +160,64 @@ class _LoginPageState extends State<LoginPage> {
   }
 
 
-  void _handleLoginUser() async{
+  void _handleLoginUser() async {
+   
     if (_loginFormKey.currentState!.validate()) {
-     final message = await auth.signInWithEmailAndPassword(
-              email: _emailController.text.trim(), 
-              password: _passwordController.text.trim()
-              )
-          .whenComplete(
-            () => ScaffoldMessenger.of(context)
-                .showSnackBar(
-                  const SnackBar(
-                    content: Text("Submiting Data"),
-                  ),
-                )
-                .closed
-
+      if (_emailController.text.trim().isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("controller is emtpy"),
+            ),
           );
-            if (message !=null) {
-                  Navigator.pushNamed(context, '/templateSelect');
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(message.toString()),
+  
+        return;
+      } else {
+        try {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Submitting Data"),
+            ),
+          );
+
+          await auth.signInWithEmailAndPassword(
+              email: _emailController.text.trim(),
+              password: _passwordController.text.trim()
+              ).whenComplete(() => ScaffoldMessenger.of(context)
+                  .showSnackBar(
+                    const SnackBar(
+                      content: Text("Successfully Logged In"),
                     ),
-                  );
-                }
+                  )
+                  .closed
+                  .then((_) => Navigator.pushReplacementNamed(context, '/home')),
+              );
 
+    
+        } on FirebaseAuthException catch (error) {
+        
+          String snakMessage='';
+          switch (error.code) {
+            case 'user-not-found':
+              snakMessage = 'Invalid email or password.';
+              break;
+            case 'wrong-password':
+              snakMessage = 'Incorrect password.';
+              break;
+            case 'invalid-email':
+              snakMessage = 'Invalid email .';
+              break;
+            default:
+              snakMessage = 'An error occurred. Please try again.';
+              break;
+          }
 
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(snakMessage),
+            ),
+          );
+        }
+      }
     }
   }
-  }
+}
