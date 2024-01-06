@@ -1,8 +1,15 @@
+
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+// ...
+
+
+
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+   const HomePage({Key? key}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,12 +28,10 @@ class HomePage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              // Implement notifications functionality here
-              Navigator.pushNamed(context, '/');
-            },
+            onPressed: () =>_handleLogoutUser(context) ,
+           
             icon: const Icon(
-              Icons.power_off,
+              Icons.logout,
               color: Colors.black,
             ),
           ),
@@ -35,7 +40,7 @@ class HomePage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SizedBox(height: 24.0),
+          const SizedBox(height: 24.0),
           Expanded(
             child: Container(
               decoration: const BoxDecoration(
@@ -47,9 +52,9 @@ class HomePage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  SizedBox(height: 24.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                 const  SizedBox(height: 24.0),
+                  const Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 16.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -72,7 +77,7 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 24.0),
+                  const SizedBox(height: 24.0),
                   Expanded(
                     child: ListView.builder(
                       itemCount: 4,
@@ -97,7 +102,7 @@ class HomePage extends StatelessWidget {
                                 ),
                                 title: Text(
                                   'Template ${index + 1}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -120,4 +125,24 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+  void _handleLogoutUser(BuildContext context) {
+ try {
+    
+    FirebaseAuth.instance.signOut().whenComplete(() => 
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Successfully Signed Out"),
+      ),
+    ).close
+    ).then((value) =>   Navigator.pushReplacementNamed(context, '/'));
+    
+  } catch (e) {
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("An error occurred during logout. Please try again."),
+      ),
+    );
+  }
+}
 }

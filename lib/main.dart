@@ -51,9 +51,8 @@ class CountMeIn extends StatelessWidget {
               splashTransition: SplashTransition.fadeTransition,
               nextScreen: LandingPage(),
             ),
-        '/home': (context) => const HomePage(),
+        '/home': (context) =>  const HomePage(),
         '/loadImage': (context) => const LoadImagePage(),
-        // '/defectTrack': (contexHomet) => const Home()
       },
     );
   }

@@ -148,26 +148,47 @@
       );
     }
 
-    void _handleSignupUser() {
-      // signup user
-      print('Email: ${_emailController.text}');
-  print('Password: ${_passwordController.text}');
+    void _handleSignupUser()  {
+    
+  if (_signupFormKey.currentState!.validate()) {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
 
-      if (_signupFormKey.currentState!.validate()) {
- auth
-            .createUserWithEmailAndPassword(
-                email: _emailController.text, password: _passwordController.text)
-            .whenComplete(
-              () => ScaffoldMessenger.of(context)
-                  .showSnackBar(
-                    const SnackBar(
-                      content: Text("Successfully Signed Up"),
-                    ),
-                  )
-            //       .closed
-            //       .then((_) => Navigator.pushReplacementNamed(context, '/loadImage')),
-            // );
-            );
-      }
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Email or password is empty"),
+        ),
+      );
+      return;
+    }
+
+    try {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Submitting Data"),
+        ),
+      );
+
+       auth.createUserWithEmailAndPassword(
+        email: _emailController.text, password: _passwordController.text
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Successfully Signed Up"),
+        ),
+      );
+      Navigator.pushReplacementNamed(context, '/home');
+      
+    } on FirebaseAuthException catch (error) {
+     
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error.message.toString()),
+        ),
+      );
     }
   }
+ }
+}

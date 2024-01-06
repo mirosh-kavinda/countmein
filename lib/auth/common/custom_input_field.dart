@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomInputField extends StatefulWidget {
   final String labelText;
   final String hintText;
-  
+  final TextEditingController controller;
   final String? Function(String?) validator;
   final bool suffixIcon;
   final bool? isDense;
@@ -16,7 +16,8 @@ class CustomInputField extends StatefulWidget {
     required this.validator,
     this.suffixIcon = false,
     this.isDense,
-    this.obscureText = false, required TextEditingController controller
+    this.obscureText = false, 
+    required this.controller
   }) : super(key: key);
 
   @override
@@ -40,6 +41,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
             child: Text(widget.labelText, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
           ),
           TextFormField(
+            controller: (widget.controller),
             obscureText: (widget.obscureText),
             decoration: InputDecoration(
               isDense: (widget.isDense != null) ? widget.isDense : false,

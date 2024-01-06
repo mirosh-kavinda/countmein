@@ -20,8 +20,7 @@ class _LoginPageState extends State<LoginPage> {
 final _loginFormKey = GlobalKey<FormState>();
 final TextEditingController _emailController = TextEditingController();
 final TextEditingController _passwordController = TextEditingController();
-bool showSnackBar=false;
-String snakMessage='';
+
 FirebaseAuth auth = FirebaseAuth.instance;  
 
 
@@ -159,65 +158,47 @@ FirebaseAuth auth = FirebaseAuth.instance;
     );
   }
 
+void _handleLoginUser() async {
+  if (_loginFormKey.currentState!.validate()) {
+    final email = _emailController.text;
+    final password = _passwordController.text;
 
-  void _handleLoginUser() async {
-   
-    if (_loginFormKey.currentState!.validate()) {
-      if (_emailController.text.trim().isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("controller is emtpy"),
-            ),
-          );
-  
-        return;
-      } else {
-        try {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("Submitting Data"),
-            ),
-          );
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Email or password is empty"),
+        ),
+      );
+      return; // Add return to exit the function if email or password is empty
+    }
 
-          await auth.signInWithEmailAndPassword(
-              email: _emailController.text.trim(),
-              password: _passwordController.text.trim()
-              ).whenComplete(() => ScaffoldMessenger.of(context)
-                  .showSnackBar(
-                    const SnackBar(
-                      content: Text("Successfully Logged In"),
-                    ),
-                  )
-                  .closed
-                  .then((_) => Navigator.pushReplacementNamed(context, '/home')),
-              );
+    try {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Submitting Data"),
+        ),
+      );
 
-    
-        } on FirebaseAuthException catch (error) {
-        
-          String snakMessage='';
-          switch (error.code) {
-            case 'user-not-found':
-              snakMessage = 'Invalid email or password.';
-              break;
-            case 'wrong-password':
-              snakMessage = 'Incorrect password.';
-              break;
-            case 'invalid-email':
-              snakMessage = 'Invalid email .';
-              break;
-            default:
-              snakMessage = 'An error occurred. Please try again.';
-              break;
-          }
+      await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(snakMessage),
-            ),
-          );
-        }
-      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Successfully Signed In"),
+        ),
+      );
+
+      Navigator.pushReplacementNamed(context, '/home');
+
+    } on FirebaseAuthException catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error.message.toString()),
+        ),
+      );
     }
   }
+}
 }
