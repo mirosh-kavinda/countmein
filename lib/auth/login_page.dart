@@ -1,12 +1,11 @@
-import 'package:countmein/pages/home_page.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:countmein/auth/common/custom_input_field.dart';
-import 'package:countmein/auth/common/page_header.dart';
+import 'package:countmein/common/custom_input_field.dart';
+import 'package:countmein/common/page_header.dart';
 import 'package:countmein/auth/forget_password_page.dart';
 import 'package:countmein/auth/signup_page.dart';
-import 'package:countmein/auth/common/page_heading.dart';
-import 'package:countmein/auth/common/custom_form_button.dart';
+import 'package:countmein/common/page_heading.dart';
+import 'package:countmein/common/custom_form_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
@@ -62,8 +61,8 @@ FirebaseAuth auth = FirebaseAuth.instance;
                               return 'Please enter a valid email';
                             }
                             return null;
-                          }),
-
+                          }
+                          ),
                         CustomInputField(
                           controller: _passwordController, // Pass the controller to the CustomInputField
                           labelText: 'Password',
@@ -103,9 +102,11 @@ FirebaseAuth auth = FirebaseAuth.instance;
                           ),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 40,
                         ),
                         CustomFormButton(
+                           textSize: 16.0,
+                           inputSize: 0.8,
                           innerText: 'Login',
                           onPressed: _handleLoginUser,
                         ),

@@ -1,11 +1,10 @@
   import 'package:email_validator/email_validator.dart';
-  import 'package:firebase_core/firebase_core.dart';
   import 'package:flutter/material.dart';
-  import 'package:countmein/auth/common/page_header.dart';
-  import 'package:countmein/auth/common/page_heading.dart';
+  import 'package:countmein/common/page_header.dart';
+  import 'package:countmein/common/page_heading.dart';
   import 'package:countmein/auth/login_page.dart';
-  import 'package:countmein/auth/common/custom_form_button.dart';
-  import 'package:countmein/auth/common/custom_input_field.dart';
+  import 'package:countmein/common/custom_form_button.dart';
+  import 'package:countmein/common/custom_input_field.dart';
   import 'package:firebase_auth/firebase_auth.dart';
 
   class SignupPage extends StatefulWidget {
@@ -26,13 +25,23 @@
     Widget build(BuildContext context) {
       return SafeArea(
         child: Scaffold(
-          backgroundColor: const Color(0xffEEF1F3),
-          body: SingleChildScrollView(
+        backgroundColor: const Color(0xffEEF1F3),
+        body: Column(
+          children: [
+            const PageHeader(),
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(20),
+                  ),
+                ),
+          child: SingleChildScrollView(
             child: Form(
               key: _signupFormKey,
               child: Column(
                 children: [
-                  const PageHeader(),
                   Container(
                     decoration: const BoxDecoration(
                       color: Colors.white,
@@ -79,10 +88,27 @@
                         const SizedBox(
                           height: 16,
                         ),
+                         CustomInputField(
+                            controller: _emailController,
+                            labelText: 'Epf Number',
+                            hintText: 'Enter your EPF Number',
+                            isDense: true,
+                            validator: (textValue) {
+                              if (textValue == null || textValue.isEmpty) {
+                                return 'Email is required!';
+                              }
+                              if (!EmailValidator.validate(textValue)) {
+                                return 'Please enter a valid email';
+                              }
+                              return null;
+                            }),
+                               const SizedBox(
+                          height: 16,
+                        ),
                         CustomInputField(
                           controller: _passwordController,
                           labelText: 'Password',
-                          hintText: 'Your password',
+                          hintText: 'Enter Your password',
                           isDense: true,
                           obscureText: true,
                           validator: (textValue) {
@@ -93,10 +119,30 @@
                           },
                           suffixIcon: true,
                         ),
+                           const SizedBox(
+                          height: 16,
+                        ),
+                            CustomInputField(
+                          controller: _passwordController,
+                          labelText: 'Re-Password',
+                          hintText: 'Retype Your password',
+                          isDense: true,
+                          obscureText: true,
+                          validator: (textValue) {
+                            if (textValue == null || textValue.isEmpty) {
+                              return 'Password is required!';
+                            }
+                            return null;
+                          },
+                          suffixIcon: true,
+                        ),
+                          
                         const SizedBox(
                           height: 22,
                         ),
                         CustomFormButton(
+                           textSize: 18.0,
+                           inputSize: 0.8,
                           innerText: 'Signup',
                           onPressed: _handleSignupUser,
                         ),
@@ -145,8 +191,13 @@
             ),
           ),
         ),
-      );
-    }
+      ),
+       ],
+        ),
+      ),
+    );
+  }
+
 
     void _handleSignupUser()  {
     

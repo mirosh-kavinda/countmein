@@ -55,11 +55,7 @@ Future<void> getImage() async {
     if (response.statusCode == 200) {
     //   // Parse the response
     var jsonResponse = await http.Response.fromStream(response);
-  
 
-  
-      // Assuming the response contains a processed image path, you can use it to create a File
-      String outputImagePath = jsonDecode(jsonResponse.body)['outputimage_url'];
       String resCount=jsonDecode(jsonResponse.body)['stealcount'];
       getImage();
     
@@ -103,7 +99,7 @@ Future<void> getImage() async {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                if(stealcount!=null)
+                if(stealcount!="")
                   Text('Steal Count = '+stealcount),
                   
               ],

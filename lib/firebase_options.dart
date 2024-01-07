@@ -49,33 +49,37 @@ class DefaultFirebaseOptions {
     messagingSenderId: '29633496293',
     projectId: 'countmein-e7dcb',
     authDomain: 'countmein-e7dcb.firebaseapp.com',
+    databaseURL: 'https://countmein-e7dcb-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'countmein-e7dcb.appspot.com',
     measurementId: 'G-B4JRKFNWYB',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyB8hehDfWvvTBuwAuYCUcxG9ezUkAWe0bs',
-    appId: '1:29633496293:android:fa429701acb93321d1000c',
+    appId: '1:29633496293:android:b97a13e2fe8957e8d1000c',
     messagingSenderId: '29633496293',
     projectId: 'countmein-e7dcb',
+    databaseURL: 'https://countmein-e7dcb-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'countmein-e7dcb.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAPbRcm4gomNvdkLbtSjbPNMjDbvsXkDTA',
-    appId: '1:29633496293:ios:0c52b4ee3cb07c74d1000c',
+    appId: '1:29633496293:ios:6a0e64670cbc89fcd1000c',
     messagingSenderId: '29633496293',
     projectId: 'countmein-e7dcb',
+    databaseURL: 'https://countmein-e7dcb-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'countmein-e7dcb.appspot.com',
-    iosBundleId: 'com.example.countmeinApp1',
+    iosBundleId: 'com.example.countmein',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyAPbRcm4gomNvdkLbtSjbPNMjDbvsXkDTA',
-    appId: '1:29633496293:ios:0c52b4ee3cb07c74d1000c',
+    appId: '1:29633496293:ios:f75f25e6bbf67649d1000c',
     messagingSenderId: '29633496293',
     projectId: 'countmein-e7dcb',
+    databaseURL: 'https://countmein-e7dcb-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'countmein-e7dcb.appspot.com',
-    iosBundleId: 'com.example.countmeinApp1',
+    iosBundleId: 'com.example.countmein.RunnerTests',
   );
 }

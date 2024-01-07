@@ -1,4 +1,6 @@
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -18,21 +20,25 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0.0,
         leading: IconButton(
-          onPressed: () {
-            // Implement menu functionality here
-          },
+          onPressed: () =>Navigator.pushReplacementNamed(context, '/userAccount'),
           icon: const Icon(
-            Icons.menu,
+            Icons.account_circle_rounded,
             color: Colors.black,
+             size: 28,
+              opticalSize: 1,
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () =>_handleLogoutUser(context) ,
-           
-            icon: const Icon(
-              Icons.logout,
-              color: Colors.black,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              onPressed: () =>_handleLogoutUser(context) ,
+              icon: const Icon(
+                Icons.logout,
+                color: Colors.black,
+                size: 28,
+                opticalSize: 1,
+              ),
             ),
           ),
         ],
@@ -56,24 +62,17 @@ class HomePage extends StatelessWidget {
                   const Padding(
                     padding:  EdgeInsets.symmetric(horizontal: 16.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Templates',
+                          'Pending Jobs To Proceed..',
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
                         ),
-                        Text(
-                          'See All',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue,
-                          ),
-                        ),
+                        
                       ],
                     ),
                   ),
@@ -101,12 +100,12 @@ class HomePage extends StatelessWidget {
                                   ),
                                 ),
                                 title: Text(
-                                  'Template ${index + 1}',
+                                  'Job ${index + 1}',
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                subtitle: const Text('select this template to count steal bars'),
+                                subtitle: const Text('select this job to count steal bars'),
                                 trailing: const Icon(
                                   Icons.keyboard_arrow_right,
                                 ),

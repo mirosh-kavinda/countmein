@@ -1,8 +1,6 @@
-import 'package:countmein/pages/defect_track.dart';
 import 'package:countmein/pages/landing_page.dart';
-
+import 'package:countmein/pages/user_account.dart';
 import 'package:flutter/material.dart';
-import 'package:countmein/auth/login_page.dart';
 import 'package:countmein/pages/home_page.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -33,6 +31,7 @@ class CountMeIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, 
       title: 'CountMeIn',
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
@@ -53,6 +52,7 @@ class CountMeIn extends StatelessWidget {
             ),
         '/home': (context) =>  const HomePage(),
         '/loadImage': (context) => const LoadImagePage(),
+        '/userAccount':(context)=>const userAccount()
       },
     );
   }
