@@ -51,7 +51,7 @@ class CountMeIn extends StatelessWidget {
               nextScreen: LandingPage(),
             ),
         '/home': (context) =>  const HomePage(),
-        '/loadImage': (context) => const LoadImagePage(),
+        // '/loadImage': (context) => const LoadImagePage(),
         '/userAccount':(context)=>const userAccount()
       },
     );

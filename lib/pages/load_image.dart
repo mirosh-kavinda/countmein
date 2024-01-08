@@ -7,7 +7,8 @@ import 'dart:io';
 
 
 class LoadImagePage extends StatefulWidget {
-  const LoadImagePage({Key? key}) : super(key: key);
+  final String headerText;
+  const LoadImagePage({Key? key,required this.headerText}) : super(key: key);
 
   @override
   _LoadImagePageState createState() => _LoadImagePageState();
@@ -20,7 +21,7 @@ class _LoadImagePageState extends State<LoadImagePage> {
   bool _showProceedButton = false;
   bool _imageloadFromGalary=false;
   late File? _imageFile; 
-
+  
 
  @override
   void initState() {
@@ -31,6 +32,7 @@ class _LoadImagePageState extends State<LoadImagePage> {
   Future<void> _getImageFromCamera(BuildContext context) async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.camera);
+   
 
     if (pickedImage != null) {
       setState(() {
@@ -66,7 +68,7 @@ class _LoadImagePageState extends State<LoadImagePage> {
  Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
-       
+       title: Center(child: Text(widget.headerText)),
     ),
     body: SafeArea(
       child: Center(

@@ -33,121 +33,124 @@ FirebaseAuth auth = FirebaseAuth.instance;
           children: [
             const PageHeader(),
             Expanded(
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(20),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(20),
+                    ),
                   ),
-                ),
-                child: SingleChildScrollView(
-                  child: Form(
-                    key: _loginFormKey,
-                    child: Column(
-                      children: [
-                        const PageHeading(
-                          title: 'Log-in',
-                        ),
-                        CustomInputField(
-                          controller: _emailController,
-                          labelText: 'Email',
-                          hintText: 'Your email id',
-                          isDense: true,
-                          validator: (textValue) {
-                            if (textValue == null || textValue.isEmpty) {
-                              return 'Email is required!';
-                            }
-                            if (!EmailValidator.validate(textValue)) {
-                              return 'Please enter a valid email';
-                            }
-                            return null;
-                          }
+                  child: SingleChildScrollView(
+                    child: Form(
+                      key: _loginFormKey,
+                      child: Column(
+                        children: [
+                          const PageHeading(
+                            title: 'Log-in',
                           ),
-                        CustomInputField(
-                          controller: _passwordController, // Pass the controller to the CustomInputField
-                          labelText: 'Password',
-                          hintText: 'Your password',
-                          obscureText: true,
-                          suffixIcon: true,
-                          validator: (textValue) {
-                            if (textValue == null || textValue.isEmpty) {
-                              return 'Password is required!';
+                          CustomInputField(
+                            controller: _emailController,
+                            labelText: 'Email',
+                            hintText: 'Enter Your email id',
+                            isDense: true,
+                            validator: (textValue) {
+                              if (textValue == null || textValue.isEmpty) {
+                                return 'Email is required!';
+                              }
+                              if (!EmailValidator.validate(textValue)) {
+                                return 'Please enter a valid email';
+                              }
+                              return null;
                             }
-                            // Add password validation logic here if needed
-                            return null; // Return null when the input is valid
-                          },
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Container(
-                          width: size.width * 0.80,
-                          alignment: Alignment.centerRight,
-                          child: GestureDetector(
-                            onTap: () => {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ForgetPasswordPage()))
+                            ),
+                          CustomInputField(
+                            controller: _passwordController, // Pass the controller to the CustomInputField
+                            labelText: 'Password',
+                            hintText: 'Enter Your password',
+                            obscureText: true,
+                            suffixIcon: true,
+                            validator: (textValue) {
+                              if (textValue == null || textValue.isEmpty) {
+                                return 'Password is required!';
+                              }
+                              // Add password validation logic here if needed
+                              return null; // Return null when the input is valid
                             },
-                            child: const Text(
-                              'Forget password?',
-                              style: TextStyle(
-                                color: Color(0xff939393),
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Container(
+                            width: size.width * 0.80,
+                            alignment: Alignment.centerRight,
+                            child: GestureDetector(
+                              onTap: () => {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ForgetPasswordPage()))
+                              },
+                              child: const Text(
+                                'Forget password?',
+                                style: TextStyle(
+                                  color: Color(0xff939393),
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                        CustomFormButton(
-                           textSize: 16.0,
-                           inputSize: 0.8,
-                          innerText: 'Login',
-                          onPressed: _handleLoginUser,
-                        ),
-                        const SizedBox(
-                          height: 48,
-                        ),
-                        SizedBox(
-                          width: size.width * 0.8,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Don\'t have an account ? ',
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    color: Color(0xff939393),
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              GestureDetector(
-                                onTap: () => {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const SignupPage()))
-                                },
-                                child: const Text(
-                                  'Sign-up',
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          CustomFormButton(
+                             textSize: 16.0,
+                             inputSize: 0.8,
+                            innerText: 'Login',
+                            onPressed: _handleLoginUser,
+                          ),
+                          const SizedBox(
+                            height: 48,
+                          ),
+                          SizedBox(
+                            width: size.width * 0.8,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Don\'t have an account ? ',
                                   style: TextStyle(
-                                      fontSize: 15,
-                                      color: Color(0xff748288),
+                                      fontSize: 13,
+                                      color: Color(0xff939393),
                                       fontWeight: FontWeight.bold),
                                 ),
-                              ),
-                            ],
+                                GestureDetector(
+                                  onTap: () => {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SignupPage()))
+                                  },
+                                  child: const Text(
+                                    'Sign-up',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color: Color(0xff748288),
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                      ],
+                          const SizedBox(
+                            height: 40,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

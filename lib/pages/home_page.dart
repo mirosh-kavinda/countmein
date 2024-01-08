@@ -1,13 +1,9 @@
 
 import 'dart:math';
 
+import 'package:countmein/pages/load_image.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-// ...
-
-
-
 
 class HomePage extends StatelessWidget {
    const HomePage({Key? key}) : super(key: key);
@@ -79,11 +75,16 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 24.0),
                   Expanded(
                     child: ListView.builder(
-                      itemCount: 4,
+                      itemCount: 2,
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/loadImage');
+                            Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoadImagePage(headerText:'Job ${index + 1}'),
+                          ),
+                        );
                           },
                           child: Padding(
                             padding:

@@ -28,57 +28,60 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
           children: [
             const PageHeader(),
             Expanded(
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(20),),
-                ),
-                child: SingleChildScrollView(
-                  child: Form(
-                    key: _forgetPasswordFormKey,
-                    child: Column(
-                      children: [
-                        const PageHeading(title: 'Forgot password',),
-                        CustomInputField(
-                            controller: _emailController ,
-                            labelText: 'Email',
-                            hintText: 'Your email id',
-                            isDense: true,
-                            validator: (textValue) {
-                              if(textValue == null || textValue.isEmpty) {
-                                return 'Email is required!';
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(20),),
+                  ),
+                  child: SingleChildScrollView(
+                    child: Form(
+                      key: _forgetPasswordFormKey,
+                      child: Column(
+                        children: [
+                          const PageHeading(title: 'Forgot password',),
+                          CustomInputField(
+                              controller: _emailController ,
+                              labelText: 'Email',
+                              hintText: 'Your email id',
+                              isDense: true,
+                              validator: (textValue) {
+                                if(textValue == null || textValue.isEmpty) {
+                                  return 'Email is required!';
+                                }
+                                if(!EmailValidator.validate(textValue)) {
+                                  return 'Please enter a valid email';
+                                }
+                                return null;
                               }
-                              if(!EmailValidator.validate(textValue)) {
-                                return 'Please enter a valid email';
-                              }
-                              return null;
-                            }
-                        ),
-                        const SizedBox(height: 20,),
-                        CustomFormButton(
-                           textSize: 20.0,
-                          innerText: 'Submit', 
-                          onPressed: _handleForgetPassword,
-                           inputSize: 0.8,
                           ),
-                        const SizedBox(height: 20,),
-                        Container(
-                          alignment: Alignment.center,
-                          child: GestureDetector(
-                            onTap: () => {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()))
-                            },
-                            child: const Text(
-                              'Back to login',
-                              style: TextStyle(
-                                fontSize: 13,
-                                color: Color(0xff939393),
-                                fontWeight: FontWeight.bold,
+                          const SizedBox(height: 20,),
+                          CustomFormButton(
+                             textSize: 20.0,
+                            innerText: 'Submit', 
+                            onPressed: _handleForgetPassword,
+                             inputSize: 0.8,
+                            ),
+                          const SizedBox(height: 20,),
+                          Container(
+                            alignment: Alignment.center,
+                            child: GestureDetector(
+                              onTap: () => {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()))
+                              },
+                              child: const Text(
+                                'Back to login',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Color(0xff939393),
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
