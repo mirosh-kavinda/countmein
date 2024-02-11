@@ -3,16 +3,21 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:countmein/common/custom_form_button.dart';
+import 'package:countmein/pages/landing_page.dart';
+import 'package:countmein/pages/order_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:photo_view/photo_view.dart';
 
 const String baseUrl = 'http://192.168.43.75:5000'; // Replace with your IP address
 
 
 class ProcessPage extends StatefulWidget {
   final File imageFile;
-
-  const ProcessPage({Key? key, required this.imageFile}) : super(key: key);
+  final int calculatedCount;
+  final String id;
+  const ProcessPage({Key? key, required this.imageFile ,required this.calculatedCount , required this.id}) : super(key: key);
 
   @override
   _ProcessPageState createState() => _ProcessPageState();
@@ -20,6 +25,7 @@ class ProcessPage extends StatefulWidget {
 
 class _ProcessPageState extends State<ProcessPage> {
   late File? _processedImageFile;
+  late bool isMatched;
   bool _isLoading = true;
   String stealcount='';
 
@@ -28,20 +34,22 @@ class _ProcessPageState extends State<ProcessPage> {
     super.initState();
     _processImage(widget.imageFile);
     _processedImageFile=null;
+    isMatched=false;
   }
 
-Future<void> getImage() async {
-  final response = await http.get(Uri.parse(baseUrl + '/get_image/output_image.jpg'));
+Future<void> getImage(String respones) async {
+  final response = await http.get(Uri.parse('http://192.168.43.75:5000/get_image/output_image.jpg'));
     
     // Save the downloaded image to a local file
     File tempImageFile = File(widget.imageFile.path.replaceAll('.jpg', '_processed.jpg'));
     await tempImageFile.writeAsBytes(response.bodyBytes);
-
-    
+      
       setState(() {
         _processedImageFile = tempImageFile;
+        stealcount=respones;
+        isMatched=(widget.calculatedCount.toString()==respones)?true:false;
         _isLoading=false;
-    
+  
       });
 }
   Future<void> _processImage(File imageFile) async {
@@ -57,12 +65,9 @@ Future<void> getImage() async {
     var jsonResponse = await http.Response.fromStream(response);
 
       String resCount=jsonDecode(jsonResponse.body)['stealcount'];
-      getImage();
+      
+      await getImage(resCount);
     
-  
-      setState(() {
-        stealcount=resCount;
-      });
     } else {
       print('Request failed with status: ${response.statusCode}');
     //   // Handle error if needed
@@ -73,7 +78,7 @@ Future<void> getImage() async {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Process Page'),
+        title: const Text('Process Page'),
         ),
       body: SafeArea(
       child: Center(
@@ -83,26 +88,48 @@ Future<void> getImage() async {
             Expanded(
               child: Container(
                 child: _isLoading
-                      ? CircularProgressIndicator()
-                      : Center(
-                          child: _processedImageFile != null
-                              ? Image.file(
-                                  _processedImageFile!,
-                                  fit: BoxFit.cover,
-                                  height: double.infinity,
-                                  width: double.infinity,
-                                )
-                          : Container(), // Display an empty container if the image is null
-              ),
+                      ? const Center(child: CircularProgressIndicator())
+                      :  _processedImageFile != null
+                        ? PhotoView(
+                            imageProvider: FileImage(_processedImageFile!),
+                            minScale: PhotoViewComputedScale.contained,
+                            maxScale: PhotoViewComputedScale.covered * 2,
+                            enableRotation: true,
+                          )
+                         : Container(), // Display an empty container if the image is null
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                if(stealcount!="")
-                  Text('Steal Count = '+stealcount),
-                  
-              ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  if(stealcount!="")  
+                    CustomFormButton(
+                         textSize: 15.0,
+                         inputSize: 0.4,
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProcessPage(imageFile: widget.imageFile,calculatedCount: widget.calculatedCount,id: widget.id),
+                            ),
+                          ),
+                        innerText: 'Reprocess',
+                      ),
+                  if(stealcount!="")   
+                    CustomFormButton(
+                        textSize: 15.0,
+                        inputSize: 0.4,
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OrderSummary(isMatched: isMatched,stealCount: stealcount , id:widget.id),
+                          ),
+                        ),
+                      innerText: 'Next',
+                    ),
+                ],
+              ),
             )
           ],
         ),

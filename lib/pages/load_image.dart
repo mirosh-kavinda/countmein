@@ -5,10 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
+import 'package:photo_view/photo_view.dart';
+
 
 class LoadImagePage extends StatefulWidget {
   final String headerText;
-  const LoadImagePage({Key? key,required this.headerText}) : super(key: key);
+  final String id;
+  final int calculatedCount ;
+  
+  const LoadImagePage({Key? key,required this.headerText, required this.calculatedCount, required this.id ,Object? orderData}) : super(key: key);
 
   @override
   _LoadImagePageState createState() => _LoadImagePageState();
@@ -77,14 +82,14 @@ class _LoadImagePageState extends State<LoadImagePage> {
           children: [
             Expanded(
               child: Center(
-                child: _imageFile != null
-                    ? Image.file(
-                        _imageFile!,
-                        fit: BoxFit.cover,
-                        height: double.infinity,
-                        width: double.infinity,
-                      )
-                    : Container(
+                child: _imageFile!= null
+                        ? PhotoView(
+                            imageProvider: FileImage(_imageFile!),
+                            minScale: PhotoViewComputedScale.contained,
+                            maxScale: PhotoViewComputedScale.covered * 2,
+                            enableRotation: true,
+                          )
+                         : Container(
                       child: const Icon(
                           Icons.image_search,
                           color: Colors.black,
@@ -134,7 +139,7 @@ class _LoadImagePageState extends State<LoadImagePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ProcessPage(imageFile: _imageFile!),
+                            builder: (context) => ProcessPage(imageFile: _imageFile!, calculatedCount:widget.calculatedCount , id: widget.id),
                           ),
                         );
                       } else {
